@@ -21,7 +21,7 @@ struct WeatherListViewModel {
     }
     
     func modelAt(_ index: Int) -> WeatherViewModel {
-        return self.weatherViewModels[index]
+        return self.weatherViewModels[index ]
     }
 }
 

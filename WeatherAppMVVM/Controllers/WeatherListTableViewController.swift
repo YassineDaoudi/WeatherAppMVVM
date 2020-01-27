@@ -23,7 +23,27 @@ class WeatherListTableViewController: UITableViewController, AddWeatherDelegate 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       
+        
+        if segue.identifier == "AddWeatherCityVC" {
+            
+            prepareSegueForAddWeatherCityViewController(segue: segue)
+            
+            
+        } else if segue.identifier == "SettingsTVC" {
+            prepareSegueForSettingsTVC(segue: segue)
+        }
+        
+        
+    }
+    
+    private func prepareSegueForSettingsTVC(segue : UIStoryboardSegue) {
+           
+        
+       }
+    
+    
+    private func prepareSegueForAddWeatherCityViewController(segue : UIStoryboardSegue) {
+        
         guard let nav = segue.destination as? UINavigationController else {
             fatalError("NavigationController not found")
         }
@@ -34,7 +54,6 @@ class WeatherListTableViewController: UITableViewController, AddWeatherDelegate 
         
         addWeatherCityVC.delegate = self
     }
-    
     
     // MARK: - Table view data source
 
