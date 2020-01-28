@@ -15,13 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let statusBar =  UIView()
-        statusBar.frame = UIApplication.shared.statusBarFrame
-        statusBar.tintColor = UIColor.white
-        UIApplication.shared.keyWindow?.addSubview(statusBar)
-        
-        
+                
         if #available(iOS 13.0, *) {
+            
                 let coloredAppearance = UINavigationBarAppearance()
                 coloredAppearance.configureWithOpaqueBackground()
                 coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -34,20 +30,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 UINavigationBar.appearance().barTintColor = UIColor(displayP3Red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
                 UINavigationBar.appearance().tintColor = UIColor.white
             
-            
-            
-            /*****************************************************/
-            
                 
             } else {
+            
                 UINavigationBar.appearance().tintColor = .white
                 UINavigationBar.appearance().barTintColor = UIColor(displayP3Red: 52/255, green: 152/255, blue: 219/255, alpha: 1.0)
                 UINavigationBar.appearance().isTranslucent = false
+            
             }
+        
+        setupDefaultSettings()
         
         return true
     }
 
+    private func setupDefaultSettings() {
+        
+        let userDefaults = UserDefaults.standard
+        if userDefaults.value(forKey: "unit") == nil {
+            userDefaults.set(Unit.celsius.rawValue, forKey: "unit")
+        }
+    }
+    
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

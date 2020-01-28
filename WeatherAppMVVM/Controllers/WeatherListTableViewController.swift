@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeatherListTableViewController: UITableViewController, AddWeatherDelegate {
+class WeatherListTableViewController: UITableViewController, AddWeatherDelegate, SettingsDelegate {
 
     let cellId = "WeatherCell"
     private var weatherListViewModel = WeatherListViewModel()
@@ -22,22 +22,35 @@ class WeatherListTableViewController: UITableViewController, AddWeatherDelegate 
         self.tableView.reloadData()
     }
     
+    func settingsDone(vm: SettingsViewModel) {
+        self.weatherListViewModel.updateUnit(to: vm.selectedUnit)
+        self.tableView.reloadData()
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "AddWeatherCityVC" {
             
             prepareSegueForAddWeatherCityViewController(segue: segue)
             
-            
         } else if segue.identifier == "SettingsTVC" {
+            
             prepareSegueForSettingsTVC(segue: segue)
         }
-        
-        
     }
     
     private func prepareSegueForSettingsTVC(segue : UIStoryboardSegue) {
            
+        guard let nav = segue.destination as? UINavigationController else {
+            fatalError("NavigationController not found")
+        }
+        
+        guard let settingsTVC = nav.viewControllers.first as? SettingsTableViewController else {
+            fatalError("SettingsTableViewController not found")
+        }
+        
+        settingsTVC.delegate = self
         
        }
     

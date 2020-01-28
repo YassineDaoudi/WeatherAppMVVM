@@ -26,7 +26,10 @@ class AddWeatherCityViewController: UIViewController {
         
         if let city = cityNameTextField.text {
             
-            let weatherURL = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=eeb6a5b00a72a602b2b084e31acaf86c&units=metric")!
+            let userDefaults = UserDefaults.standard
+            let unit = userDefaults.value(forKey: "unit") as! String
+            
+            let weatherURL = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=eeb6a5b00a72a602b2b084e31acaf86c&units=\(unit)")!
             let weatherResource = Resource<WeatherViewModel>(url: weatherURL) { data in
                 
                 let weatherVM = try? JSONDecoder().decode(WeatherViewModel.self, from: data)
