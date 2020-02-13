@@ -37,6 +37,9 @@ class WeatherListTableViewController: UITableViewController, AddWeatherDelegate,
         } else if segue.identifier == "SettingsTVC" {
             
             prepareSegueForSettingsTVC(segue: segue)
+            
+        } else if segue.identifier == "WeatherDetailsSegue" {
+            prepareSegueForWeatherDetailsVC(segue: segue)
         }
     }
     
@@ -66,6 +69,16 @@ class WeatherListTableViewController: UITableViewController, AddWeatherDelegate,
         }
         
         addWeatherCityVC.delegate = self
+    }
+    
+    private func prepareSegueForWeatherDetailsVC(segue : UIStoryboardSegue) {
+        
+        guard let weatherDetailVC = segue.destination as? WeatherDetailsViewController, let indexPath = self.tableView.indexPathForSelectedRow else {
+            return
+        }
+        
+        let weatherVM = self.weatherListViewModel.modelAt(indexPath.row)
+        weatherDetailVC.weatherViewModel = weatherVM
     }
     
     // MARK: - Table view data source
